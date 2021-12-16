@@ -1,5 +1,5 @@
 # Impractical projects
-## This repo contain al those projects that came to my mind, even if they are silly
+## I'll save all those impractical projects that come to my mind even if they are silly
 
 ---
 ### Regaeton lyrics generator  
