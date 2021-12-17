@@ -8,9 +8,9 @@
 
 import random
 
-subject =['mami','chica','bebé','princess','loca', 'lady']
+subject =['mami','chica','bebé','princess' , 'lady']
 action=['quiero','vamos a','voy a', 'vengo a']
-verb=['darte', 'castigarte','azotarte','encenderte','amarte', 'ligar', 'jugar']
+verb=['darte', 'castigarte', 'encenderte','amarte', 'ligar', 'jugar']
 intensidad=['duro', 'rapido', 'lento', 'suave', 'fuerte']
 time=['hasta que salga el sol', 'toda la noche', 'hasta el amanecer', 'hasta mañana', 'todo el día'] 
 something=['sin miedo', 'sin anestesia', 'contra el piso', 'contra la pared', 'sin compromiso', 'face to face', 'sin compromiso']
@@ -22,7 +22,7 @@ def run():
     
     #Here starts to generate lyrics and writting the TXT file
 
-    #intro: Using a for cycle to create a kind of intro
+    #intro: Using a for loop to create a kind of intro
     f.write("\n[ Intro ] \n")
     for i in range(4):
         intro=(random.choice(subject).title() + " " + random.choice(action) + " " + random.choice(verb) + " " + random.choice(intensidad) + " " + random.choice(time))
@@ -32,10 +32,10 @@ def run():
     bridge=("\n[ Bridge ]\n" + random.choice(verb).title() + " " + random.choice(verb) + " " + random.choice(verb) + ", " + random.choice(time) + ", " + random.choice(intensidad) + "\n")
     f.write(bridge + "\n")
 
-    #Corus: similar to "Intro", it is created with a for cycle
+    #Corus: similar to "Intro", it is created with a for loop
     f.write("\n[ Coro ] \n")
     for i in range(4):
-        coro1=(random.choice(subject).title()  +" " + random.choice(action) + " " + random.choice(verb) + " " + random.choice(intensidad) + " " + random.choice(time) + " + " + random.choice(something))
+        coro1=(random.choice(subject).title()  +" " + random.choice(action) + " " + random.choice(verb) + " " + random.choice(intensidad) + " " + random.choice(time) + " " + random.choice(something))
         f.write(coro1 + "\n")
 
     #Another bridge
