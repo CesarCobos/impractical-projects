@@ -1,4 +1,5 @@
-import os, re
+import os
+import re
 
 def cl():
     if os.name == "nt":
