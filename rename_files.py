@@ -9,7 +9,10 @@ def cl():
 
 def run():
     #Asking to User for the file path 
-    filepath= str(input("\nIngresa el directorio donde se encuentran tus archivos \n"))
+    filepath= str(input(
+            "\nIngresa el directorio donde se encuentran tus archivos \n"
+            )
+        )
     #If the path doesn't exists then shows a message and then the program exits
     if not os.path.exists(filepath):
         

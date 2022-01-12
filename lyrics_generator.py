@@ -8,12 +8,28 @@
 
 import random
 
-subject =['mami','chica','bebé','princess' , 'lady']
-action=['quiero','vamos a','voy a', 'vengo a']
-verb=['darte', 'castigarte', 'encenderte','amarte', 'ligar', 'jugar']
-intensidad=['duro', 'rapido', 'lento', 'suave', 'fuerte']
-time=['hasta que salga el sol', 'toda la noche', 'hasta el amanecer', 'hasta mañana', 'todo el día'] 
-something=['sin miedo', 'sin anestesia', 'contra el piso', 'contra la pared', 'sin compromiso', 'face to face', 'sin compromiso']
+subject =[
+    'mami','chica','bebé',
+    'princess' , 'lady'
+    ]
+
+action=[
+    'quiero','vamos a','voy a', 'vengo a'
+    ]
+verb=[
+    'darte','castigarte','encenderte','amarte','ligar', 'jugar'
+    ]
+intensidad=[
+    'duro', 'rapido','lento', 'suave','fuerte'
+    ]
+time=[
+    'hasta que salga el sol','toda la noche', 'hasta el amanecer',
+    'hasta mañana', 'todo el día'] 
+something=[
+    'sin miedo', 'sin anestesia', 'contra el piso',
+    'contra la pared', 'sin compromiso', 'face to face',
+    'sin compromiso'
+    ]
 
 def run():  
 
@@ -25,21 +41,67 @@ def run():
     #intro: Using a for loop to create a kind of intro
     f.write("\n[ Intro ] \n")
     for i in range(4):
-        intro=(random.choice(subject).title() + " " + random.choice(action) + " " + random.choice(verb) + " " + random.choice(intensidad) + " " + random.choice(time))
+        intro=(
+            random.choice(subject).title() 
+            + " " 
+            + random.choice(action) 
+            + " " 
+            + random.choice(verb) 
+            + " " 
+            + random.choice(intensidad) 
+            + " " 
+            + random.choice(time)
+            )
         f.write(intro+"\n")
 
     #bridge: Just a pre-corus
-    bridge=("\n[ Bridge ]\n" + random.choice(verb).title() + " " + random.choice(verb) + " " + random.choice(verb) + ", " + random.choice(time) + ", " + random.choice(intensidad) + "\n")
+    bridge=(
+        "\n[ Bridge ]\n" 
+        + random.choice(verb).title() 
+        + " " 
+        + random.choice(verb) 
+        + " " 
+        + random.choice(verb) 
+        + ", " 
+        + random.choice(time) 
+        + ", " 
+        + random.choice(intensidad) 
+        + "\n"
+        )
     f.write(bridge + "\n")
 
     #Corus: similar to "Intro", it is created with a for loop
     f.write("\n[ Coro ] \n")
     for i in range(4):
-        coro1=(random.choice(subject).title()  +" " + random.choice(action) + " " + random.choice(verb) + " " + random.choice(intensidad) + " " + random.choice(time) + " " + random.choice(something))
+        coro1=(
+            random.choice(subject).title()  
+            +" " 
+            + random.choice(action) 
+            + " " 
+            + random.choice(verb) 
+            + " " 
+            + random.choice(intensidad) 
+            + " " 
+            + random.choice(time) 
+            + " " 
+            + random.choice(something)
+            )
         f.write(coro1 + "\n")
 
     #Another bridge
-    bridge2=("\n[ Bridge ]\n" + random.choice(verb).title() + " " + random.choice(verb) + " " + random.choice(verb) + ", " + random.choice(time) + ", " + random.choice(intensidad) + "\n")
+    bridge2=(
+        "\n[ Bridge ]\n" 
+        + random.choice(verb).title() 
+        + " " 
+        + random.choice(verb) 
+        + " " 
+        + random.choice(verb) 
+        + ", " 
+        + random.choice(time) 
+        + ", " 
+        + random.choice(intensidad) 
+        + "\n"
+        )
     f.write(bridge2)
   
     #Now, lyrics are done, and we can close the TXT file
