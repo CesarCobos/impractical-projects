@@ -1,8 +1,12 @@
-#Created for entertainment and learning purposes, it is not intended to offend any type of person 
+#Created for entertainment and learning purposes, 
+# it is not intended to offend any type of person 
 
 #Regaeton lyrics generator
-#This code reads some lists with verbs and commons words used, by a structure and a random selection generates the lyrics, then creates and show a TXT file with it
-#If the "lyrics" file exists then it replace the content, if not a new file is created
+#This code reads some lists with verbs and commons words used,
+# by a structure and a random selection generates the lyrics,
+# then creates and show a TXT file with it
+#If the "lyrics" file exists then it replace the content,
+# if not a new file is created
 #Created with Python 3.10, should work with an older version
 
 
