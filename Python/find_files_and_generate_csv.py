@@ -50,7 +50,8 @@ def run():
         "CHR&":"Charola",
         "HPR&":"Tolva",
         "DTS&":"Archivo de Detalle",
-        "BRD&":"Brida"
+        "BRD&":"Brida",
+        "CE&":"Campana de extraccion"
     }
     utf_replace ={
         "á":"a","é":"e","í":"i","ó":"o","ú":"u"
