@@ -4,11 +4,9 @@ import csv
 
 def run(): 
     path = './'
-    pattern = "PFI*.*"
-    regex = r"[.-]"
-    
+
     #Creating file columns
-    columnas = "Nombre de Proyecto" + "/" + "Numero de Proyecto" + "/" + "Plano" + "/" + "Rev" + "/" + "Tipo de Plano" + "/" + "Descripcion" + "/" + "Ubicacion" 
+    columnas = "Nombre de archivo" + "/" + "Numero de Proyecto" + "/" + "Plano" + "/" + "Rev" + "/" + "Tipo de Plano" + "/" + "Descripcion" + "/" + "Ubicacion" 
     print(str(columnas.split("/")).strip("'[]").replace("'",''))
     #an ignore list of dirs
     ignore_list = ["Obsoleto","OBSOLETO","obsoleto","OBSOLETOS","Obsoletos","obsoletos"]
@@ -22,6 +20,7 @@ def run():
         "ESC&":"Escotilla",
         "FIN&":"Cuello de Succion",
         "S2R&":"Transicion",
+        "S&": "Transicion",
         "STW&":"Escalera Marina",
         "YEE&":"Yee",
         "PLT&":"Plataforma",
@@ -51,37 +50,43 @@ def run():
         "HPR&":"Tolva",
         "DTS&":"Archivo de Detalle",
         "BRD&":"Brida",
-        "CE&":"Campana de extraccion"
+        "BDR":"Brida",
+        "CE&":"Campana de extraccion",
+        "CHN":"Canal tipo U"
     }
     utf_replace ={
         "á":"a","é":"e","í":"i","ó":"o","ú":"u"
     }
-    
+
+    #PFI21C001-S2R001R10-descripcion
+    regex = re.compile(r'(PFI\d\d\w\d{1,3}).*- ?([\w]{1,5}[\d]{1,3}).*?([\w]{1,}).*?(.*)\.')
+    regex_rev = re.compile(r'.*(R[\d]{1,3})')
+    regex_blueprint =re.compile(r'PFI\d\d\w\d{2,3} ?- ?([A-Z]{1,3}|\w\d\w)')
+
     #starting code
     for root,dirs, files in os.walk(path, topdown=True):
         #removing "obsolet" dirs
         [dirs.remove(d) for d in list(dirs) if d in ignore_list]
         for f in files:
             #if the files starts with some string and ends with some extension then list it
+            for i in utf_replace.items():
+                f = f.replace(*i)
+
             if f.startswith("PFI") and f.endswith(".pdf"):
-                # columnas = "Nombre de Proyecto" + "/" + "Numero de Proyecto" + "/" + "Plano" + "/" + "Rev" + "/" + "Tipo de Plano" + "/" + "Descripcion" + "/" + "Ubicacion"
-                proyect_name = str(''.join(f.split('.')[0:1])) 
-                proyect_number = '%' + str(re.split(regex,f)[0:1]).replace(' ','').strip("'[] ") 
-                blueprint = '%' + str(re.split(regex,f)[1:2]).replace(' ','').strip("'[] ")[:-2] 
-                rev = '%' + str(re.split(regex,f)[1:2]).strip("'[] ").replace(' ','')[-2:] 
-                blueprint_type = '%' + str(re.split(regex,f)[1:2]).strip("'[] ").replace(' ','')[:-5]
-                description = '&' + '%' + str(re.split(regex,f)[2:3]).strip("'[]") 
-                locate = '%' + str(root).replace('./','') + '/'
+                res = re.match(regex,f)
+                rev = re.match(regex_rev,f)
+                blueprint = re.match(regex_blueprint,f)
+                blueprint_replaced = str((f"{blueprint.group(1)}&"))
+                name_replace = str(f"{res.group(4)}").replace('-', '')
+                path = path.replace('./','')
+                for r in blueprint_replace.items():
+                    blueprint_replaced = blueprint_replaced.replace(*r)
 
-                output = proyect_name + proyect_number + blueprint + rev + blueprint_type + description + locate
-                output = str(output.split('%')).strip("'[] ").replace("'",'')
+                if res:
+                    name_part_two= (f"{res.group(1)},{res.group(2)},{rev.group(1)},{blueprint_replaced},{name_replace.lstrip(' ').rstrip(' ')}")
+                    name_part_one = (f"{res.group(1)}-{res.group(2)}{rev.group(1)}")
+                    print(f"{name_part_one},{name_part_two}{path}")
 
-                #replace utf'8 chars
-                for r in utf_replace.items():
-                    output = output.replace(*r)
-                for t in blueprint_replace.items():
-                    output = output.replace(*t)
-                print(output.replace("pdf",''))
-
+                    
 if __name__ == '__main__':
     run()
