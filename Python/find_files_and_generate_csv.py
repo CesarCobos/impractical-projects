@@ -54,8 +54,9 @@ def run():
         "CE&":"Campana de extraccion",
         "CHN&":"Canal tipo U",
         "LMC&":"Lista de Materiales y componentes",
-        "ANX$":"Anexo",
-        "PMP$":"Progama de actividades"
+        "ANX&":"Anexo",
+        "PMP&":"Progama de actividades",
+        "DOC&":"Documento"
     }
     utf_replace ={
         "á":"a","é":"e","í":"i","ó":"o","ú":"u"
