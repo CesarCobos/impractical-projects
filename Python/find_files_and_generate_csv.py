@@ -6,7 +6,7 @@ def run():
     path = './'
 
     #Creating file columns
-    columnas = "Nombre de archivo" + "/" + "Numero de Proyecto" + "/" + "Plano" + "/" + "Rev" + "/" + "Tipo de Plano" + "/" + "Descripcion" + "/" + "Ubicacion" 
+    columnas = "Nombre de archivo" + "/" + "Numero de Proyecto" + "/" + "Plano" + "/" + "Rev" + "/" + "Tipo de Documento" + "/" + "Descripcion" + "/" + "Ubicacion" 
     print(str(columnas.split("/")).strip("'[]").replace("'",''))
     #an ignore list of dirs
     ignore_list = ["Obsoleto","OBSOLETO","obsoleto","OBSOLETOS","Obsoletos","obsoletos"]
@@ -56,7 +56,10 @@ def run():
         "LMC&":"Lista de Materiales y componentes",
         "ANX&":"Anexo",
         "PMP&":"Progama de actividades",
-        "DOC&":"Documento"
+        "DOC&":"Documento",
+        "SPE&":"Especifiacion",
+        "DMP&":"Compuerta Automatica",
+        "DFL&":"Deflector"
     }
     utf_replace ={
         "á":"a","é":"e","í":"i","ó":"o","ú":"u"
@@ -89,7 +92,7 @@ def run():
                 if res:
                     name_part_two= (f"{res.group(1)},{res.group(2)},{rev.group(1)},{blueprint_replaced},{name_replace.lstrip(' ').rstrip(' ')}")
                     name_part_one = (f"{res.group(1)}-{res.group(2)}{rev.group(1)}")
-                    print(f"{name_part_one},{name_part_two}{path}")
+                    print(f"{name_part_one},{name_part_two},{root}")
 
                     
 if __name__ == '__main__':
