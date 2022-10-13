@@ -20,7 +20,6 @@ def run():
         "ESC&":"Escotilla",
         "FIN&":"Cuello de Succion",
         "S2R&":"Transicion",
-        "S&": "Transicion",
         "STW&":"Escalera Marina",
         "YEE&":"Yee",
         "PLT&":"Plataforma",
@@ -59,7 +58,8 @@ def run():
         "DOC&":"Documento",
         "SPE&":"Especifiacion",
         "DMP&":"Compuerta Automatica",
-        "DFL&":"Deflector"
+        "DFL&":"Deflector",
+        "S&": "Transicion",
     }
     utf_replace ={
         "á":"a","é":"e","í":"i","ó":"o","ú":"u"
