@@ -60,6 +60,12 @@ def run():
         "DMP&":"Compuerta Automatica",
         "DFL&":"Deflector",
         "S&": "Transicion",
+        "LMAT&": "Lista de materiales",
+        "MCLC&":"Memoria de calculo",
+        "MSTR":"Memoria de calculo estructural",
+        "COM":"Comunicado",
+        "MINT":"Minuta",
+        "REPO":"Reporte"
     }
     utf_replace ={
         "á":"a","é":"e","í":"i","ó":"o","ú":"u"
@@ -68,7 +74,7 @@ def run():
     #PFI21C001-S2R001R10-descripcion
     regex = re.compile(r'(PFI\d\d\w\d{1,3}).*- ?([\w]{1,5}[\d]{1,3}).*?([\w]{1,}).*?(.*)\.')
     regex_rev = re.compile(r'.*(R[\d]{1,3})')
-    regex_blueprint =re.compile(r'PFI\d\d\w\d{2,3} ?- ?([A-Z]{1,3}|\w\d\w)')
+    regex_blueprint =re.compile(r'PFI\d\d\w\d{2,3} ?- ?([A-Z]{1,4}|\w\d\w)')
 
     #starting code
     for root,dirs, files in os.walk(path, topdown=True):
@@ -80,20 +86,19 @@ def run():
                 f = f.replace(*i)
 
             if f.startswith("PFI") and f.endswith(".pdf"):
-                res = re.match(regex,f)
-                rev = re.match(regex_rev,f)
+                result = re.match(regex,f)
+                rev_number = re.match(regex_rev,f)
                 blueprint = re.match(regex_blueprint,f)
                 blueprint_replaced = str((f"{blueprint.group(1)}&"))
-                name_replace = str(f"{res.group(4)}").replace('-', '')
+                name_replace = str(f"{result.group(4)}").replace('-', '')
                 path = path.replace('./','')
                 for r in blueprint_replace.items():
                     blueprint_replaced = blueprint_replaced.replace(*r)
 
-                if res:
-                    name_part_two= (f"{res.group(1)},{res.group(2)},{rev.group(1)},{blueprint_replaced},{name_replace.lstrip(' ').rstrip(' ')}")
-                    name_part_one = (f"{res.group(1)}-{res.group(2)}{rev.group(1)}")
+                if result:
+                    name_part_two= (f"{result.group(1)},{result.group(2)},{rev_number.group(1)},{blueprint_replaced},{name_replace.lstrip(' ').rstrip(' ')}")
+                    name_part_one = (f"{result.group(1)}-{result.group(2)}{rev_number.group(1)}")
                     print(f"{name_part_one},{name_part_two},{root}")
 
-                    
 if __name__ == '__main__':
     run()
