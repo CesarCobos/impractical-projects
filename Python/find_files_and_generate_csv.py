@@ -30,7 +30,7 @@ def run():
         "NS&":"Silenciador",
         "DE&":"Diagrama Electrico",
         "PID&":"Diagrama de Instrumentacion",
-        "SPC12&":"Matachispas 12in",
+        "SPC&":"Matachispas",
         "XPJ&":"Junta de Expansion",
         "ASM&":"Ensamble",
         "BOX&":"Cubierta",
@@ -62,17 +62,24 @@ def run():
         "S&": "Transicion",
         "LMAT&": "Lista de materiales",
         "MCLC&":"Memoria de calculo",
-        "MSTR":"Memoria de calculo estructural",
-        "COM":"Comunicado",
-        "MINT":"Minuta",
-        "REPO":"Reporte"
+        "MSTR&":"Memoria de calculo estructural",
+        "COM&":"Comunicado",
+        "MINT&":"Minuta",
+        "REPO&":"Reporte",
+        "PRJ&":"Cronograma de actividades",
+        "CAT&":"Catalogo de conceptos",
+        "SPEC&":"Documento de especificacion",
+        "FIL&":"Filtro",
+        "PL&":"Plano de placas de acero",
+        "PLM&":"Deflector",
+        "IBX&":"Entrada de colector"
     }
     utf_replace ={
         "á":"a","é":"e","í":"i","ó":"o","ú":"u"
     }
 
     #PFI21C001-S2R001R10-descripcion
-    regex = re.compile(r'(PFI\d\d\w\d{1,3}).*- ?([\w]{1,5}[\d]{1,3}).*?([\w]{1,}).*?(.*)\.')
+    regex = re.compile(r'(PFI\d\d\w\d{1,3}).*- ?([\w]{1,5}[\d]{1,5}).*?([\w]{1,}).*?(.*)\.')
     regex_rev = re.compile(r'.*(R[\d]{1,3})')
     regex_blueprint =re.compile(r'PFI\d\d\w\d{2,3} ?- ?([A-Z]{1,4}|\w\d\w)')
 
