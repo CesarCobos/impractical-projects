@@ -70,10 +70,12 @@ def run():
     }
     able_extensions = {
         "pdf&":"Documento PDF",
+        "dwg&":"Archivo de AutoCAD",
         # "xlsx&":"Documento de Excel",
     }
     ending_extension=(
         "pdf",
+        "dwg",
         # "xlsx",
         # "xls",
         # "docx",
