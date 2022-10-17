@@ -4,14 +4,10 @@ import csv
 
 def run(): 
     path = './'
-
-    #Creating file columns
-    columnas = "Nombre de archivo" + "/" + "Numero de Proyecto" + "/" + "Plano" + "/" + "Rev" + "/" + "Tipo de Documento" + "/" + "Descripcion" + "/" + "Ubicacion" 
-    print(str(columnas.split("/")).strip("'[]").replace("'",''))
     #an ignore list of dirs
     ignore_list = ["Obsoleto","OBSOLETO","obsoleto","OBSOLETOS","Obsoletos","obsoletos"]
     #replace dicts
-    blueprint_replace = {
+    plan_type_dict = {
         "AG&":"Arreglo General",
         "VLV&":"Valvula",
         "BTW&":"Bota aguas",
@@ -49,7 +45,6 @@ def run():
         "HPR&":"Tolva",
         "DTS&":"Archivo de Detalle",
         "BRD&":"Brida",
-        "BDR":"Brida",
         "CE&":"Campana de extraccion",
         "CHN&":"Canal tipo U",
         "LMC&":"Lista de Materiales y componentes",
@@ -59,7 +54,6 @@ def run():
         "SPE&":"Especifiacion",
         "DMP&":"Compuerta Automatica",
         "DFL&":"Deflector",
-        "S&": "Transicion",
         "LMAT&": "Lista de materiales",
         "MCLC&":"Memoria de calculo",
         "MSTR&":"Memoria de calculo estructural",
@@ -74,38 +68,56 @@ def run():
         "PLM&":"Deflector",
         "IBX&":"Entrada de colector"
     }
+    able_extensions = {
+        "pdf&":"Documento PDF",
+        # "xlsx&":"Documento de Excel",
+    }
+    ending_extension=(
+        "pdf",
+        # "xlsx",
+        # "xls",
+        # "docx",
+        # "doc",
+    )
     utf_replace ={
-        "á":"a","é":"e","í":"i","ó":"o","ú":"u"
+        "á":"a","é":"e","í":"i","ó":"o","ú":"u","ü":"u",
     }
 
-    #PFI21C001-S2R001R10-descripcion
-    regex = re.compile(r'(PFI\d\d\w\d{1,3}).*- ?([\w]{1,5}[\d]{1,5}).*?([\w]{1,}).*?(.*)\.')
-    regex_rev = re.compile(r'.*(R[\d]{1,3})')
-    regex_blueprint =re.compile(r'PFI\d\d\w\d{2,3} ?- ?([A-Z]{1,4}|\w\d\w)')
-
-    #starting code
-    for root,dirs, files in os.walk(path, topdown=True):
-        #removing "obsolet" dirs
-        [dirs.remove(d) for d in list(dirs) if d in ignore_list]
-        for f in files:
-            #if the files starts with some string and ends with some extension then list it
-            for i in utf_replace.items():
-                f = f.replace(*i)
-
-            if f.startswith("PFI") and f.endswith(".pdf"):
+    #Column names
+    name_files ="Nombre de Archivo"
+    project_num = "Numero de proyecto"
+    plan = "Plano"
+    plan_type = "Tipo de plano"
+    rev = "Revision"
+    description ="Descripcion"
+    extension = "Extension"
+    location =" Ubicacion"
+    
+    #Regex structure
+    regex = re.compile(r'(PFI\d\d\w\d{1,3}).*- ?([\w]{1,5}[^0-9])([\d]{1,5}).*?(R[\d]{1,3}).*- ?(.*)\.(\w{1,5})')
+    #Creatin - Replaciing CSV file
+    with open("Lista de archivos.csv","w", newline='') as file:
+        fieldnames=[name_files,project_num,plan,plan_type,rev,description,extension,location]
+        writer = csv.DictWriter(file, fieldnames=fieldnames)
+        writer.writeheader()
+        for root,dirs, files in os.walk(path, topdown=True):
+            #removing "obsolet" dirs
+            [dirs.remove(d) for d in list(dirs) if d in ignore_list]
+            for f in files:
                 result = re.match(regex,f)
-                rev_number = re.match(regex_rev,f)
-                blueprint = re.match(regex_blueprint,f)
-                blueprint_replaced = str((f"{blueprint.group(1)}&"))
-                name_replace = str(f"{result.group(4)}").replace('-', '')
-                path = path.replace('./','')
-                for r in blueprint_replace.items():
-                    blueprint_replaced = blueprint_replaced.replace(*r)
+                #if the files starts with some string and ends with some extension then list it
+                for i in utf_replace.items():
+                    f = f.replace(*i)
+                if f.startswith('PFI') and f.endswith(ending_extension):
+                    plan_replace = str(f'{result.group(2)}&')
+                    for i in plan_type_dict.items():
+                        plan_replace = plan_replace.replace(*i)
+                    extension_replace = str(f'{result.group(6)}&')
+                    for i in able_extensions.items():
+                        extension_replace = extension_replace.replace(*i)
+                    file_name = (f'{result.group(1)}-{result.group(2)}{result.group(3)}{result.group(4)}-{result.group(5)}')
 
-                if result:
-                    name_part_two= (f"{result.group(1)},{result.group(2)},{rev_number.group(1)},{blueprint_replaced},{name_replace.lstrip(' ').rstrip(' ')}")
-                    name_part_one = (f"{result.group(1)}-{result.group(2)}{rev_number.group(1)}")
-                    print(f"{name_part_one},{name_part_two},{root}")
+                    writer.writerow({name_files: file_name,project_num:result.group(1),plan:f'{result.group(2)}{result.group(3)}',plan_type:plan_replace,rev:result.group(4),description:result.group(5),extension:extension_replace,location:root})
 
 if __name__ == '__main__':
     run()

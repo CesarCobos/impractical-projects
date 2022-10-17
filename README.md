@@ -26,4 +26,4 @@ Creating QR codes using qrcode module, you can read the Docs [here]("https://pyp
 ---
 ### Find files and create CSV
 **Python code**  
-This code look for files that matches with a Regex structure, then extracts form its file name the data and sort it in a CSV structure. To save all the info in a CSV file, use it with > in the command line.
+This code look for files that matches with a Regex structure, then extracts form its file name the data and sort it in a CSV structure, then save it to a CSV file.
