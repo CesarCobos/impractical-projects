@@ -1,7 +1,12 @@
 import os
 import re
 import csv
-
+utf_replace ={
+        "á":"a","é":"e","í":"i","ó":"o","ú":"u","ü":"u",
+    }
+def replace(item):
+    for i in utf_replace.items():
+        item = item.replace(*i)
 def run(): 
     path = './'
     #an ignore list of dirs
@@ -55,7 +60,7 @@ def run():
         "DMP&":"Compuerta Automatica",
         "DFL&":"Deflector",
         "LMAT&": "Lista de materiales",
-        "MCLC&":"Memoria de calculo",
+        "MCAL&":"Memoria de calculo",
         "MSTR&":"Memoria de calculo estructural",
         "COM&":"Comunicado",
         "MINT&":"Minuta",
@@ -70,18 +75,16 @@ def run():
     }
     able_extensions = {
         "pdf&":"Documento PDF",
-        # "xlsx&":"Documento de Excel",
+        "xlsx&":"Documento de Excel",
     }
     ending_extension=(
         "pdf",
-        # "xlsx",
+        "xlsx",
         # "xls",
         # "docx",
         # "doc",
     )
-    utf_replace ={
-        "á":"a","é":"e","í":"i","ó":"o","ú":"u","ü":"u",
-    }
+    
 
     #Column names
     name_files ="Nombre de Archivo"
@@ -108,6 +111,7 @@ def run():
                 #if the files starts with some string and ends with some extension then list it
                 for i in utf_replace.items():
                     f = f.replace(*i)
+                    root = root.replace(*i)
                 if f.startswith('PFI') and f.endswith(ending_extension):
                     plan_replace = str(f'{result.group(2)}&')
                     for i in plan_type_dict.items():
@@ -115,9 +119,12 @@ def run():
                     extension_replace = str(f'{result.group(6)}&')
                     for i in able_extensions.items():
                         extension_replace = extension_replace.replace(*i)
+                    
                     file_name = (f'{result.group(1)}-{result.group(2)}{result.group(3)}{result.group(4)}-{result.group(5)}')
 
                     writer.writerow({name_files: file_name,project_num:result.group(1),plan:f'{result.group(2)}{result.group(3)}',plan_type:plan_replace,rev:result.group(4),description:result.group(5),extension:extension_replace,location:root})
+
+
 
 if __name__ == '__main__':
     run()
