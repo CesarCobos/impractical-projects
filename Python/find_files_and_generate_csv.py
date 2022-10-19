@@ -5,6 +5,7 @@ import csv
 ignore_list = ["Obsoleto","OBSOLETO","obsoleto","OBSOLETOS","Obsoletos","obsoletos"]
 utf_replace ={"á":"a","é":"e","í":"i","ó":"o","ú":"u","ü":"u",}
     #replace dicts
+
 plan_type_dict = {
     "AG&":"Arreglo General","DSP&":"Despiece","DE&":"Diagrama Electrico","PID&":"Diagrama de Instrumentacion","ASM&":"Ensamble",
     "VLV&":"Valvula","DMP&":"Compuerta Automatica",
