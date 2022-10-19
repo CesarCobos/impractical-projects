@@ -36,6 +36,9 @@ able_extensions = {
 ending_extension=(
     "pdf","xlsx",# "xls",# "docx",# "doc",
 )
+deleted_extensions=(
+    "log","bak",
+)
 
 def run(): 
     #Replace function
@@ -87,6 +90,11 @@ def run():
                                     ,plan_type_column:plan_type,rev_column:result.group(4)
                                     ,description_column:file_description,extension_column:file_extension
                                     ,location_column:root})
+    #Deleting plot.log files
+                if f.endswith(deleted_extensions):
+                    log_location= str(f'{root}/{f}')
+                    os.remove(log_location)
+                    print(f'Archivo {f} eliminado de {root}')
 #main
 if __name__ == '__main__':
     run()
