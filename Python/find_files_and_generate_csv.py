@@ -28,7 +28,8 @@ plan_type_dict = {
     "ANX&":"Anexo","DOC&":"Documento","COM&":"Comunicado", "MINT&":"Minuta", "REPO&":"Reporte",
     "SPEC&":"Documento de especificacion", "PRJ&":"Cronograma de actividades", "CAT&":"Catalogo de conceptos",
     "LMAT&": "Lista de materiales", 
-    "MCAL&":"Memoria de calculo", "MSTR&":"Memoria de calculo estructural", 
+    "MCAL&":"Memoria de calculo", "MSTR&":"Memoria de calculo estructural",
+    "REF&" :"Archivo de referencia ",
 }
 able_extensions = {
     "pdf&":"Documento PDF","xlsx&":"Documento de Excel",
