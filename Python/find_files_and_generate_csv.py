@@ -29,7 +29,7 @@ plan_type_dict = {
     "SPEC&":"Documento de especificacion", "PRJ&":"Cronograma de actividades", "CAT&":"Catalogo de conceptos",
     "LMAT&": "Lista de materiales", 
     "MCAL&":"Memoria de calculo", "MSTR&":"Memoria de calculo estructural",
-    "REF&" :"Archivo de referencia ",
+    "REF&" :"Archivo de referencia ", "DFT&": "Borrador a mano alzada",
 }
 able_extensions = {
     "pdf&":"Documento PDF","xlsx&":"Documento de Excel",
@@ -40,7 +40,6 @@ ending_extension=(
 deleted_extensions=(
     "log","bak",
 )
-
 def run(): 
     #Replace function
     def replace_fn(file, bd_dict):
@@ -57,7 +56,6 @@ def run():
     description_column ="Descripcion"
     extension_column = "Extension"
     location_column =" Ubicacion"
-    
     #Regex structure
     #Regex groups: G1:Project, G2:Plan type G3:Plan number G4: Rev G5:File description G6: extension
     regex = re.compile(r'(PFI\d\d\w\d{1,3}).*- ?([\w]{1,5}[^0-9])([\d]{1,5}).*?(R[\d]{1,3}).*- ?(.*)\.(\w{1,5})')
@@ -77,7 +75,6 @@ def run():
                 result = re.match(regex,f)
     #if the files starts with some string and ends with some extension then list it
                 if f.startswith('PFI') and f.endswith(ending_extension):
-
                     file_name = str(f'{result.group(1)}-{result.group(2)}{result.group(3)}{result.group(4)}-{result.group(5)}')
     #Replacing utf characters
                     file_name =replace_fn(file_name, utf_replace)
